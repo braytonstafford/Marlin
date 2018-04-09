@@ -1,4 +1,32 @@
-# Marlin 3D Printer Firmware
+# Marlin Firmware 1.1.5 w Unified Bed Leveling
+## Anycubic Kossel Mini Delta Printer
+This repo includes the configuration.h that has been modified to work with my Anycubic Kossel and provide bed leveling using the removable bed leveling probe designed by [peaberry](https://makerware.thingiverse.com/peaberry) found [ here on thingiverse](https://makerware.thingiverse.com/thing:1976680).
+
+Currently I am running the following G-codes commands every time I power the printeron but will soon move the results into the Configuration.h file as a more permanent solution.
+
+Also, I want to note the first G-Code command. *M851 Z-26.4* This is the Z-offset that worked for me. Your mileage may vary. :)
+
+This section is configuring and activating the Unified Bed Leveling (UBL)
+```
+M851 Z-26.4        ; Change offset of Z- probe for bed leveling
+G28                ; home
+G29 P1             ; automatically probe the bed
+G29 T              ; view the results
+G29 S1             ; save the UBL auto level data to EEPROM
+G29 F 10.0         ; set fade height for correction at 10mm
+G29 A              ; activate UBL auto level system
+M500               ; save current setup to EEPROM
+```
+
+This section is performing the bed leveling after you have attached the probe
+```
+G33                ; perform delta auto calibration
+; check the displayed results and, if they look sensible...
+M500               ; save them to EEPROM
+```
+
+
+## Marlin 3D Printer Firmware
 <img align="right" src="../../raw/1.1.x/buildroot/share/pixmaps/logo/marlin-250.png" />
 
 ## Marlin 1.1
